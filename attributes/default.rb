@@ -14,6 +14,7 @@ default["td_agent"]["template_cookbook"] = 'td-agent'
 default["td_agent"]["in_http"]["enable_api"] = true
 default["td_agent"]["version"] = "2.2.0"
 default["td_agent"]["pinning_version"] = false
+default["td_agent"]["manage_repo"] = true
 default["td_agent"]["apt_arch"] = 'amd64'
 default["td_agent"]["in_forward"] = {
   port: 24224,

@@ -40,6 +40,7 @@ directory '/etc/td-agent/' do
   action :create
 end
 
+repo_action = node["td_agent"]["manage_repo"] ? :add : :remove
 case node['platform_family']
 when "debian"
   dist = node['lsb']['codename']
@@ -63,7 +64,7 @@ when "debian"
     distribution dist
     components ["contrib"]
     key "https://packages.treasuredata.com/GPG-KEY-td-agent"
-    action :add
+    action repo_action
     not_if { node['td_agent']['skip_repository'] }
   end
 when "fedora"
@@ -80,7 +81,7 @@ when "fedora"
     description "TreasureData"
     url source
     gpgkey "https://packages.treasuredata.com/GPG-KEY-td-agent"
-    action :add
+    action repo_action
     not_if { node['td_agent']['skip_repository'] }
   end
 when "rhel", "amazon"
@@ -113,7 +114,7 @@ when "rhel", "amazon"
     description "TreasureData"
     url source
     gpgkey "https://packages.treasuredata.com/GPG-KEY-td-agent"
-    action :add
+    action repo_action
     not_if { node['td_agent']['skip_repository'] }
   end
 end
